@@ -36,10 +36,10 @@ class _GameState extends State<Game> {
       () {
         if (displayXO[index] == '') {
           if (turn) {
-            displayXO[index] = 'O';
+            displayXO[index] = 'assets/o.png';
             c += 1;
           } else {
-            displayXO[index] = 'X';
+            displayXO[index] = 'assets/x.png';
             c += 1;
           }
         }
@@ -150,7 +150,7 @@ class _GameState extends State<Game> {
       builder: (BuildContext context) {
         return AlertDialog(
             title: Text(
-              "Winner: " + winner,
+              "Winner: " + (winner == 'assets/o.png' ? 'O' : 'X'),
               style: TextStyle(fontSize: 15),
             ),
             actions: <Widget>[
@@ -214,6 +214,7 @@ class _GameState extends State<Game> {
           width: widget.screenWidth,
           child: Stack(
             children: [
+              Image.asset('assets/board.png'),
               GridView.builder(
                 itemCount: 9,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -225,46 +226,16 @@ class _GameState extends State<Game> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
+                        border: Border.all(color: Colors.transparent),
                       ),
                       child: Center(
-                        child: Text(
-                          displayXO[index],
-                          style: GoogleFonts.nunito(
-                              color: Colors.white, fontSize: 40),
-                        ),
+                        child: displayXO[index] == ''
+                            ? Text('')
+                            : Image.asset(displayXO[index], width: 35),
                       ),
                     ),
                   );
                 },
-              ),
-              Container(
-                child: CustomPaint(
-                  painter: OpenPainter(
-                      dimension: widget.screenWidth, offsetY: 150, offsetX: 0),
-                ),
-              ),
-              Container(
-                child: CustomPaint(
-                  painter: OpenPainter(
-                      dimension: widget.screenHeight,
-                      offsetY: -150,
-                      offsetX: 0),
-                ),
-              ),
-              Container(
-                child: CustomPaint(
-                  painter: OpenPainter(
-                      dimension: widget.screenHeight, offsetY: 0, offsetX: 150),
-                ),
-              ),
-              Container(
-                child: CustomPaint(
-                  painter: OpenPainter(
-                      dimension: widget.screenHeight,
-                      offsetY: 0,
-                      offsetX: -150),
-                ),
               ),
             ],
           ),
@@ -272,24 +243,4 @@ class _GameState extends State<Game> {
       ),
     );
   }
-}
-
-class OpenPainter extends CustomPainter {
-  double dimension;
-  double offsetX = 0;
-  double offsetY = 0;
-  OpenPainter({this.dimension, this.offsetX, this.offsetY});
-  @override
-  void paint(Canvas canvas, Size size) {
-    var paint1 = Paint()
-      ..color = Colors.black
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 5;
-    //a rectangle
-    canvas.drawRect(
-        Offset(offsetX, offsetY) & Size(550.0 - 2, 550.0 - 2), paint1);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

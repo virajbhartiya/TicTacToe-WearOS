@@ -13,7 +13,6 @@ class HomeScreen extends StatelessWidget {
           var screenSize = MediaQuery.of(context).size;
           final shape = InheritedShape.of(context).shape;
           if (shape == Shape.round) {
-            // boxInsetLength requires radius, so divide by 2
             screenSize = Size(boxInsetLength(screenSize.width / 2),
                 boxInsetLength(screenSize.height / 2));
           }
