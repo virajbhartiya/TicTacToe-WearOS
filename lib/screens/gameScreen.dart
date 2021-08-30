@@ -133,7 +133,6 @@ class _GameState extends State<Game> {
       _showDialog(displayXO[index].toString());
     } else if (c == 9) {
       _drawAlert();
-      //print(c);
       setState(
         () {
           c = 0;
@@ -149,19 +148,23 @@ class _GameState extends State<Game> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))),
             title: Text(
               "Winner: " + (winner == 'assets/o.png' ? 'O' : 'X'),
-              style: TextStyle(fontSize: 15),
+              style: GoogleFonts.nunito(fontSize: 20),
             ),
             actions: <Widget>[
               FlatButton(
-                  color: Colors.grey[700],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                  color: Colors.blue,
                   onPressed: () {
                     _clearBoard();
                     Navigator.of(context).pop();
                   },
-                  child:
-                      Text('Play Again', style: TextStyle(color: Colors.white)))
+                  child: Text('Play Again',
+                      style: TextStyle(color: Colors.white, fontSize: 14))),
             ]);
       },
     );
@@ -231,7 +234,23 @@ class _GameState extends State<Game> {
                       child: Center(
                         child: displayXO[index] == ''
                             ? Text('')
-                            : Image.asset(displayXO[index], width: 35),
+                            : Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Image.asset(displayXO[index], width: 35),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 2,
+                                  ),
+                                ],
+                              ),
                       ),
                     ),
                   );
