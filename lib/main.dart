@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tictactoe/screens/ambient_screen.dart';
-import 'package:tictactoe/screens/start_screen.dart';
+import 'package:tictactoe/screens/homeScreen.dart';
 import 'package:tictactoe/wear.dart';
 
 void main() => runApp(MyApp());
@@ -24,7 +24,7 @@ class WatchScreen extends StatelessWidget {
           shape: shape,
           child: AmbientMode(
             builder: (context, mode) =>
-                mode == Mode.active ? StartScreen() : AmbientWatchFace(),
+                mode == Mode.active ? HomeScreen() : AmbientWatchFace(),
           ),
         ),
       );
